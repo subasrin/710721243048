@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #dfe6e9; /* Background color */
+        }
+        .calculator {
+            width: 300px;
+            background-color: #f9f9f9; /* Calculator background color */
+            margin: 50px auto;
+            border: 2px solid #000;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #000;
+        }
+        label {
+            font-weight: bold;
+            color: #000;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 8px 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: #3498db; /* Button background color */
+            color: #fff; /* Button text color */
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9; /* Button hover background color */
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff; /* Result background color */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Classic Calculator</h2>
+        <label for="numbers">Enter numbers separated by commas:</label>
+        <input type="text" id="numbers"><br>
+        <button onclick="calculateAverage()">Calculate Average</button>
+        <button onclick="calculatePrimes()">Primes</button>
+        <button onclick="calculateFibonacci()">Fibonacci</button>
+        <button onclick="calculateEven()">Even Numbers</button>
+        <button onclick="generateRandom()">Random Numbers</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateAverage() {
+            var numbers = document.getElementById('numbers').value.split(',').map(Number);
+            var sum = numbers.reduce((acc, curr) => acc + curr, 0);
+            var average = sum / numbers.length;
+            document.getElementById('result').innerText = "Average: " + average.toFixed(2);
+        }
+
+        function calculatePrimes() {
+            var numbers = document.getElementById('numbers').value.split(',').map(Number);
+            var primes = numbers.filter(isPrime);
+            document.getElementById('result').innerText = "Primes: " + primes.join(', ');
+        }
+
+        function isPrime(num) {
+            if (num <= 1) return false;
+            if (num === 2) return true;
+            for (var i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+
+        function calculateFibonacci() {
+            var n = parseInt(prompt("Enter the number of Fibonacci numbers to generate:"));
+            var fib = [0, 1];
+            for (var i = 2; i < n; i++) {
+                fib[i] = fib[i - 1] + fib[i - 2];
+            }
+            document.getElementById('result').innerText = "Fibonacci: " + fib.join(', ');
+        }
+
+        function calculateEven() {
+            var numbers = document.getElementById('numbers').value.split(',').map(Number);
+            var evens = numbers.filter(num => num % 2 === 0);
+            document.getElementById('result').innerText = "Even Numbers: " + evens.join(', ');
+        }
+
+        function generateRandom() {
+            var count = parseInt(prompt("Enter the number of random numbers to generate:"));
+            var min = parseInt(prompt("Enter the minimum value:"));
+            var max = parseInt(prompt("Enter the maximum value:"));
+            var randomNumbers = [];
+            for (var i = 0; i < count; i++) {
+                randomNumbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+            }
+            document.getElementById('result').innerText = "Random Numbers: " + randomNumbers.join(', ');
+        }
+    </script>
+</body>
+</html>
